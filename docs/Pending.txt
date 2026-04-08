@@ -1,0 +1,27 @@
+Buggar
+1. Gör LightMode default på mobilen första gången man startar appen
+2. När man klickar på knappen "Rensa alla" och sedan Avbryt så är knappen ifylld ändå tills man scrollar,
+gör så att den blir transparent så fort man klickar Avbryt (endast på mobilen), samma sak med delete på lista 
+och sedan Avbryt 
+3. "Knapparna kopiera som text" och "dela lista" verkar inte fungera på mobil varianten
+4. Offline button at top should only be visible on mobile
+
+
+
+New features
+(Estimated price for items)
+(Voice input for adding items)
+(OCR for adding items from receipt)
+(Importera/Exportera lista (finns delvis))
+(Databas istället för localStorage?)
+(Github Pages/Netlify Free/Cloudflare Pages/Vercel & Deploy (https))
+
+
+
+
+
+
+
+
+
+

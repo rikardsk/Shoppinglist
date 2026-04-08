@@ -1,0 +1,23 @@
+# Grocery App Feature Implementation Tasks
+
+- [x] 1. Set up data model
+  - [x] Add `quantity` to `GroceryItem` in `src/types.ts`
+- [x] 2. Update Application State (`App.tsx`)
+  - [x] Add history save/restore logic (`handleClearAll`, `handleRestoreHistory`)
+  - [x] Add `quantity` update logic (`handleUpdateQuantity`)
+  - [x] Update `handleAddItem` to handle duplicates & increment quantity
+  - [x] Add Print Button to header
+- [x] 3. Update Styles (`index.css`)
+  - [x] Add `@media print` rules for clean printouts
+- [x] 4. Add Quick-Add Shortcuts (`AddItemForm.tsx` & `.module.css`)
+  - [x] Create chips for common items (toggle logic)
+- [x] 5. Implement Category Collapsing & Clear All/Restore (`GroceryList.tsx` & `.module.css`)
+  - [x] Group items by category
+  - [x] Add toggleable headers for categories
+  - [x] Add "Clear All" button
+  - [x] Update Empty State with "Restore History" button
+- [x] 6. Update Line Items (`GroceryItem.tsx` & `.module.css`)
+  - [x] Add Lucide Category Icons
+  - [x] Render Quantity (`+` / `-` buttons and inline counter)
+- [x] 7. Verification
+  - [x] Browser automatic refresh confirms UI behaves cleanly

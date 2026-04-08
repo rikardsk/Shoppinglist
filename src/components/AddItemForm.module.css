@@ -1,0 +1,634 @@
+.formContainer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formContainer:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(70, 100, 130, 0.12);
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+}
+
+.textInput {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 1.1rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.textInput:focus {
+  background: var(--bg-primary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(116, 179, 206, 0.15);
+}
+
+.textInput::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
+.textInput::placeholder {
+  color: #9cb3c4;
+}
+
+.selectInput {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 1.05rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 160px;
+}
+
+.selectInput:focus {
+  background: var(--bg-primary);
+  border-color: var(--accent-primary);
+}
+
+.submitButton {
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(116, 179, 206, 0.3);
+  flex-shrink: 0;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(116, 179, 206, 0.4);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.submitButton:disabled {
+  background-color: #cbdbe6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.buttonText {
+  display: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* ── Unit chips ────────────────────────────────────────────────────────────── */
+.unitContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.unitChip {
+  padding: 0.35rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.unitChip:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: var(--bg-primary);
+}
+
+.unitChipActive {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 8px rgba(116, 179, 206, 0.3);
+}
+
+.unitChipActive:hover {
+  color: white;
+  background: var(--accent-hover);
+}
+
+/* ── Suggestions dropdown ──────────────────────────────────────────────────── */
+.suggestionsDropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  max-width: 320px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-primary);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItemActive {
+  background: rgba(116, 179, 206, 0.1);
+}
+
+.suggestionIcon {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.suggestionName {
+  flex: 1;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.suggestionCat {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.suggestionItemActive .suggestionName {
+  color: var(--accent-primary);
+}
+
+/* ── Wrapper ───────────────────────────────────────────────────────────────── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Quick-add section ─────────────────────────────────────────────────────── */
+.quickAddSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0 0.25rem;
+}
+
+.quickAddHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.quickAddLabel {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Edit mode toggle button */
+.editModeBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.editModeBtn:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.editModeBtnActive {
+  background: var(--accent-success);
+  border-color: var(--accent-success);
+  color: white;
+}
+
+.editModeBtnActive:hover {
+  background: var(--accent-success);
+  color: white;
+  filter: brightness(1.1);
+}
+
+/* ── Chips scrollable row ──────────────────────────────────────────────────── */
+.chipsScroll {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 4px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+  cursor: grab;
+  user-select: none;
+}
+
+.chipsScroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.chipsScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chipsScroll::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 999px;
+}
+
+.chipsScroll:active {
+  cursor: grabbing;
+}
+
+/* ── Individual chip ───────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.chip:hover:not(.chipEditing) {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.chipActive {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 8px rgba(116, 179, 206, 0.4);
+}
+
+.chipActive:hover:not(.chipEditing) {
+  background: var(--accent-hover);
+}
+
+/* Edit mode: whole chip is a delete button */
+.chipEditing {
+  cursor: pointer;
+  border-color: rgba(234, 138, 130, 0.5);
+}
+
+.chipEditing:hover {
+  background: rgba(234, 138, 130, 0.1);
+  border-color: var(--accent-danger);
+  color: var(--accent-danger);
+  transform: none;
+}
+
+/* Inline remove indicator inside the chip — no absolute positioning */
+.removeInline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-danger);
+  color: white;
+  margin-left: 0.15rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* "Ny genväg" add chip */
+.addQuickChip {
+  border-style: dashed;
+  opacity: 0.8;
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.addQuickChip:hover {
+  opacity: 1;
+  background: rgba(116, 179, 206, 0.1);
+  transform: translateY(-1px);
+}
+
+/* ── Inline add quick-item form ────────────────────────────────────────────── */
+.addQuickForm {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  animation: slideDown 0.2s ease-out;
+}
+
+.addQuickRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.addQuickInput {
+  flex: 1;
+  min-width: 100px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.addQuickInput:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(116, 179, 206, 0.15);
+}
+
+.addQuickSelect {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.6rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.addQuickActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.addQuickConfirm {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addQuickConfirm:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.addQuickConfirm:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.addQuickCancel {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addQuickCancel:hover {
+  border-color: var(--accent-danger);
+  color: var(--accent-danger);
+}
+
+/* ── Emoji picker ──────────────────────────────────────────────────────────── */
+.emojiPickerWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.emojiDisplay {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.emojiDisplay:hover {
+  border-color: var(--accent-primary);
+  transform: scale(1.05);
+}
+
+/* Label for "no emoji" option */
+.noEmojiLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  line-height: 1;
+}
+
+.emojiGrid {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 200;
+  width: 220px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.emojiBtn {
+  width: 34px;
+  height: 34px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.emojiBtn:hover {
+  background: var(--glass-bg);
+  border-color: var(--border-color);
+  transform: scale(1.15);
+}
+
+.emojiBtnActive {
+  background: rgba(116, 179, 206, 0.2);
+  border-color: var(--accent-primary);
+}
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 1.25rem 1.05rem;
+  }
+
+  .inputGroup {
+    display: grid;
+    grid-template-areas:
+      "input input"
+      "select button";
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+  }
+
+  .textInput {
+    grid-area: input;
+    width: 100%;
+    font-size: 1.05rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .selectInput {
+    grid-area: select;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .submitButton {
+    grid-area: button;
+    width: auto;
+    padding: 0 1.25rem;
+    display: flex;
+    gap: 0.5rem;
+    height: 54px;
+  }
+
+  .buttonText {
+    display: block;
+  }
+
+  .suggestionsDropdown {
+    max-width: none;
+    width: 100%;
+    top: 60px;
+  }
+
+  .addQuickRow {
+    gap: 0.4rem;
+  }
+
+  .addQuickSelect {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.4rem;
+  }
+}
+
+@media print {
+  .quickAddSection,
+  .formContainer {
+    display: none !important;
+  }
+}

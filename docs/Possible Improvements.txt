@@ -1,0 +1,25 @@
+💡 Possible Improvements
+Here are ideas ranging from quick wins to bigger features:
+
+🚀 Quick Wins
+1. --- Edit item names — Currently you can only delete and re-add. A tap-to-edit on item name would be handy
+2. Swipe to delete — On mobile, swipe left to reveal a delete button (more phone-friendly than the current button)
+3. Item notes — Add an optional short note to an item (e.g. "Mjölk - lättmjölk"), stored per-item
+🎨 UX Polish
+4. Animated category sections — Collapse/expand categories with a smooth animation
+5. Undo delete — A brief "Ångra" (undo) toast after deleting an item, instead of just losing it
+6. --- Better empty state — When the list is empty, show a nice illustrated empty state instead of nothing
+📱 Mobile / PWA
+7. --- Install prompt — A subtle "Installera app" banner prompting users to add it to their home screen
+8. Haptic feedback — Light vibration on toggle/delete on mobile devices
+🛒 Grocery-Specific
+9. Estimated total — Let items have an optional price, and show a running total
+10. --- Saved lists — Save and switch between multiple named lists (e.g. "Veckolista", "Festmat")
+11. Recipe importer — Paste a recipe text and auto-parse ingredients into the list
+12. Localization 
+12. Manage Categories
+
+
+
+Any of these catch your eye, or is there something else on your mind?
+

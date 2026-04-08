@@ -1,0 +1,260 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.headerButton {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.headerButton:hover {
+  color: var(--accent-primary);
+  background: var(--glass-border);
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow);
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: left;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dragOverlayItem {
+  cursor: grabbing;
+  width: 100%;
+  pointer-events: none;
+}
+.pwaBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.pwaBadge.checking {
+  display: none;
+}
+
+.pwaBadge.ready {
+  background: rgba(130, 201, 130, 0.15);
+  color: var(--accent-success);
+  border-color: rgba(130, 201, 130, 0.3);
+}
+
+.pwaBadge.limited {
+  background: rgba(234, 138, 130, 0.15);
+  color: var(--accent-danger);
+  border-color: rgba(234, 138, 130, 0.3);
+}
+
+.pwaBadge.installing {
+  background: rgba(116, 179, 206, 0.15);
+  color: var(--accent-primary);
+  border-color: rgba(116, 179, 206, 0.3);
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.headerButton.success {
+  border-color: var(--accent-success);
+  background: rgba(130, 201, 130, 0.1);
+}
+
+.headerButton.locked {
+  border-color: #f1c40f;
+  background: rgba(241, 196, 15, 0.15);
+  color: #f1c40f;
+}
+
+.lockedIcon {
+  transform: rotate(-15deg);
+  transition: transform 0.3s ease;
+}
+
+.headerButton.locked:hover .lockedIcon {
+  transform: rotate(0deg) scale(1.1);
+}
+
+@media (max-width: 480px) {
+  .pwaBadge span {
+    display: none;
+  }
+  .pwaBadge {
+    padding: 0.5rem;
+  }
+}
+@media print {
+  .pwaBadge, .headerButton {
+    display: none !important;
+  }
+}
+
+/* ── Stats & Actions ─────────────────────────────────────────────────────── */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.statsLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 6px;
+  background: rgba(116, 179, 206, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--accent-success);
+  border-radius: 4px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  margin-left: 1rem;
+}
+
+.uncheckAllBtn {
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.uncheckAllBtn:hover:not(:disabled) {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.uncheckAllBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.clearAllBtn {
+  background: transparent;
+  border: 1px solid var(--accent-danger);
+  color: var(--accent-danger);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.clearAllBtn:hover {
+  background: var(--accent-danger);
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .actionButtons {
+    width: 100%;
+    margin-left: 0;
+    flex-direction: row;
+  }
+}
