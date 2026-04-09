@@ -25,7 +25,6 @@ const ListView: React.FC<ListViewProps> = ({
 }) => {
   const [sortField, setSortField] = useState<SortField>('name');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
-  const [menuOpenId, setMenuOpenId] = useState<string | null>(null);
 
   const toggleSort = (field: SortField) => {
     if (sortField === field) {
@@ -57,7 +56,6 @@ const ListView: React.FC<ListViewProps> = ({
     if (newName !== null && newName.trim()) {
       onRename(item.id, newName.trim());
     }
-    setMenuOpenId(null);
   };
 
   const getSortIcon = (field: SortField) => {
@@ -78,7 +76,7 @@ const ListView: React.FC<ListViewProps> = ({
               Kategori {getSortIcon('category')}
             </th>
             <th className={styles.qtyCol}>Antal</th>
-            {!isLocked && <th className={styles.actionCol}>Ändra</th>}
+            {!isLocked && <th className={styles.actionCol}>Val</th>}
           </tr>
         </thead>
         <tbody>
@@ -117,24 +115,21 @@ const ListView: React.FC<ListViewProps> = ({
                 </td>
                 {!isLocked && (
                   <td className={styles.actionCell}>
-                    <div className={styles.menuContainer}>
-                      <button 
-                        className={styles.moreBtn}
-                        onClick={() => setMenuOpenId(menuOpenId === item.id ? null : item.id)}
+                    <div className={styles.rowActions}>
+                      <motion.button 
+                        onTap={() => handleEdit(item)} 
+                        className={styles.rowActionBtn}
+                        aria-label="Redigera"
                       >
-                        <MoreVertical size={18} />
-                      </button>
-                      
-                      {menuOpenId === item.id && (
-                        <div className={styles.dropdown}>
-                          <button onClick={() => handleEdit(item)}>
-                            <Pencil size={14} /> Ändra
-                          </button>
-                          <button onClick={() => { onDelete(item.id); setMenuOpenId(null); }} className={styles.deleteOption}>
-                            <Trash2 size={14} /> Ta bort
-                          </button>
-                        </div>
-                      )}
+                        <Pencil size={16} />
+                      </motion.button>
+                      <motion.button 
+                        onTap={() => onDelete(item.id)} 
+                        className={`${styles.rowActionBtn} ${styles.deleteBtn}`}
+                        aria-label="Ta bort"
+                      >
+                        <Trash2 size={16} />
+                      </motion.button>
                     </div>
                   </td>
                 )}
@@ -146,11 +141,6 @@ const ListView: React.FC<ListViewProps> = ({
       
       {items.length === 0 && (
         <div className={styles.empty}>Här var det tomt! Lägg till något i listan.</div>
-      )}
-
-      {/* Close menu when clicking outside */}
-      {menuOpenId && (
-        <div className={styles.menuOverlay} onClick={() => setMenuOpenId(null)} />
       )}
     </div>
   );
