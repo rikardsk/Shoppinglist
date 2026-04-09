@@ -184,7 +184,6 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
             </button>
           </div>
         ) : (
-          <div className={styles.nameRow}>
             <span className={styles.name}>
               {item.quantity && (item.quantity > 1 || (item.unit && item.unit !== 'st')) ? (
                 <span className={styles.quantityBadge}>
@@ -194,18 +193,6 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
               {' '}
               {item.name}
             </span>
-            {!item.isCompleted && !isLocked && onRename && (
-              <motion.button
-                className={styles.inlineEditBtn}
-                onPointerDown={(e) => e.stopPropagation()}
-                onTouchStart={(e) => e.stopPropagation()}
-                onTap={() => startEdit()}
-                aria-label={`Redigera ${item.name}`}
-                tabIndex={0}
-              >
-                <Pencil size={13} />
-              </motion.button>
-            )}
           </div>
         )}
         <span className={styles.category}>
@@ -243,8 +230,20 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
             </motion.button>
           </div>
 
+          {!item.isCompleted && onRename && (
+            <motion.button
+              className={styles.actionBtn}
+              onPointerDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTap={() => startEdit()}
+              aria-label={`Redigera ${item.name}`}
+            >
+              <Pencil size={18} />
+            </motion.button>
+          )}
+
           <motion.button
-            className={styles.deleteButton}
+            className={`${styles.actionBtn} ${styles.danger}`}
             onPointerDown={(e) => e.stopPropagation()}
             onTouchStart={(e) => e.stopPropagation()}
             onTap={(e) => {

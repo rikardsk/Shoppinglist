@@ -141,25 +141,19 @@
 }
 
 /* Small pencil that appears on hover next to the name */
-.inlineEditBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  opacity: 1; /* Permanently visible */
-  padding: 0.15rem;
-  border-radius: 4px;
-  margin-left: 0.25rem;
-  transition: color 0.15s;
-  vertical-align: middle;
-  line-height: 1;
-}
-
-.inlineEditBtn:hover {
-  color: var(--accent-primary);
+.name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
 .completed .name {
@@ -182,7 +176,7 @@
   opacity: 0.7;
 }
 
-.deleteButton {
+.actionBtn {
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -194,11 +188,16 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  opacity: 1; /* Permanently visible */
+  opacity: 1;
   outline: none;
 }
 
-.deleteButton:hover {
+.actionBtn:hover {
+  background: rgba(116, 179, 206, 0.15);
+  color: var(--accent-primary);
+}
+
+.actionBtn.danger:hover {
   background: rgba(234, 138, 130, 0.15);
   color: var(--accent-danger);
 }
@@ -206,7 +205,7 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .quantityControls {
