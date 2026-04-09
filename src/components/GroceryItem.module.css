@@ -26,10 +26,21 @@
   z-index: 1;
 }
 
-.itemContainer:hover {
-  transform: translateX(4px);
-  background: var(--item-hover-bg, var(--bg-secondary));
-  box-shadow: 0 6px 16px rgba(70, 100, 130, 0.08);
+@media (hover: hover) {
+  .itemContainer:hover {
+    transform: translateX(4px);
+    background: var(--item-hover-bg, var(--bg-secondary));
+    box-shadow: 0 6px 16px rgba(70, 100, 130, 0.08);
+  }
+}
+
+/* Hardened: disable any physical movement on touch to prevent shifting buttons away from the finger */
+@media (hover: none) {
+  .itemContainer:hover {
+    transform: none !important;
+    background: var(--item-bg, var(--glass-bg)) !important;
+    box-shadow: 0 4px 12px rgba(70, 100, 130, 0.05) !important;
+  }
 }
 
 .itemContainer.completed {
@@ -59,8 +70,10 @@
   box-shadow: 0 0 0 3px rgba(116, 179, 206, 0.4);
 }
 
-.checkbox:hover {
-  background: rgba(116, 179, 206, 0.1);
+@media (hover: hover) {
+  .checkbox:hover {
+    background: rgba(116, 179, 206, 0.1);
+  }
 }
 
 .checked {
@@ -143,7 +156,7 @@
   border: none;
   cursor: pointer;
   color: var(--text-secondary);
-  opacity: 0;
+  opacity: 0.5; /* Always visible but subtle */
   padding: 0.15rem;
   border-radius: 4px;
   margin-left: 0.25rem;
@@ -152,13 +165,19 @@
   line-height: 1;
 }
 
-.itemContainer:hover .inlineEditBtn {
-  opacity: 0.6;
-}
-
-.inlineEditBtn:hover {
-  opacity: 1 !important;
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .inlineEditBtn {
+    opacity: 0; /* Hide on desktop until hover */
+  }
+  
+  .itemContainer:hover .inlineEditBtn {
+    opacity: 0.6;
+  }
+  
+  .inlineEditBtn:hover {
+    opacity: 1 !important;
+    color: var(--accent-primary);
+  }
 }
 
 .completed .name {
@@ -202,13 +221,22 @@
   box-shadow: 0 0 0 3px rgba(234, 138, 130, 0.4);
 }
 
-.itemContainer:hover .deleteButton {
-  opacity: 1;
+@media (hover: hover) {
+  .itemContainer:hover .deleteButton {
+    opacity: 1;
+  }
+  
+  .deleteButton:hover {
+    background: rgba(234, 138, 130, 0.15);
+    color: var(--accent-danger);
+  }
 }
 
-.deleteButton:hover {
-  background: rgba(234, 138, 130, 0.15);
-  color: var(--accent-danger);
+/* Keep delete button visible on touch devices since there is no hover */
+@media (hover: none) {
+  .deleteButton {
+    opacity: 1;
+  }
 }
 
 .actions {
@@ -228,8 +256,17 @@
   transition: opacity 0.2s ease;
 }
 
-.itemContainer:hover .quantityControls {
-  opacity: 1;
+@media (hover: hover) {
+  .itemContainer:hover .quantityControls {
+    opacity: 1;
+  }
+}
+
+/* Keep controls visible on touch devices */
+@media (hover: none) {
+  .quantityControls {
+    opacity: 1;
+  }
 }
 
 .qtyBtn {
@@ -245,9 +282,11 @@
   transition: all 0.2s ease;
 }
 
-.qtyBtn:hover:not(:disabled) {
-  background: rgba(116, 179, 206, 0.2);
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .qtyBtn:hover:not(:disabled) {
+    background: rgba(116, 179, 206, 0.2);
+    color: var(--accent-primary);
+  }
 }
 
 .qtyBtn:disabled {
@@ -278,9 +317,11 @@
   touch-action: none;
 }
 
-.itemContainer:hover .dragHandle {
-  opacity: 0.8;
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .itemContainer:hover .dragHandle {
+    opacity: 0.8;
+    color: var(--accent-primary);
+  }
 }
 
 .dragHandle:active {

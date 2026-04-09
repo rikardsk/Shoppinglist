@@ -167,8 +167,17 @@
   transition: all 0.2s ease;
 }
 
-.categoryHeaderInner:hover {
-  background: var(--bg-primary);
+@media (hover: hover) {
+  .categoryHeaderInner:hover {
+    background: var(--bg-primary);
+  }
+}
+
+/* Explicitly disable any hover background on mobile/touch to prevent tap-flicker */
+@media (hover: none) {
+  .categoryHeaderInner:hover {
+    background: var(--glass-bg);
+  }
 }
 
 .categoryHeaderBtn {
@@ -194,12 +203,25 @@
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
-  opacity: 0;
+  opacity: 0.7; /* Always visible but subtle */
   transition: opacity 0.2s;
 }
 
-.categoryHeaderInner:hover .categoryActions {
-  opacity: 1;
+@media (hover: hover) {
+  .categoryActions {
+    opacity: 0; /* Hide on desktop until hover */
+  }
+  
+  .categoryHeaderInner:hover .categoryActions {
+    opacity: 1;
+  }
+}
+
+/* Explicitly remove the catch-all we added earlier to simplify */
+@media (hover: none) {
+  .categoryActions {
+    opacity: 1; /* Fully visible on touch */
+  }
 }
 
 .catActionBtn {
@@ -215,9 +237,11 @@
   transition: all 0.2s;
 }
 
-.catActionBtn:hover {
-  background: rgba(116, 179, 206, 0.15);
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .catActionBtn:hover {
+    background: rgba(116, 179, 206, 0.15);
+    color: var(--accent-primary);
+  }
 }
 
 .catActionBtn:hover .dangerIcon {
@@ -267,8 +291,10 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.colorDot:hover {
-  transform: scale(1.1);
+@media (hover: hover) {
+  .colorDot:hover {
+    transform: scale(1.1);
+  }
 }
 
 .colorDotActive {
@@ -298,8 +324,10 @@
   width: 100%;
 }
 
-.addCategoryBtn:hover {
-  background: rgba(116, 179, 206, 0.05);
+@media (hover: hover) {
+  .addCategoryBtn:hover {
+    background: rgba(116, 179, 206, 0.05);
+  }
 }
 
 .catTitle {

@@ -6,7 +6,8 @@ import {
   DndContext, 
   DragOverlay, 
   closestCenter, 
-  PointerSensor, 
+  MouseSensor,
+  TouchSensor, 
   useSensor, 
   useSensors, 
   DragEndEvent, 
@@ -216,7 +217,12 @@ const App: React.FC = () => {
 
   // ── DnD sensors ──────────────────────────────────────────────────────────
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
+    useSensor(MouseSensor, {
+      activationConstraint: { distance: 10 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 250, tolerance: 10 },
+    })
   );
 
   // ─── List Management ───────────────────────────────────────────────────────

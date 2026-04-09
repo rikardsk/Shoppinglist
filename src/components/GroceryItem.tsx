@@ -141,10 +141,11 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
           </div>
         )}
       
-      <button
+      <motion.button
         className={`${styles.checkbox} ${item.isCompleted ? styles.checked : ''}`}
         onPointerDown={(e) => e.stopPropagation()}
-        onClick={(e) => {
+        onTouchStart={(e) => e.stopPropagation()}
+        onTap={(e) => {
           e.stopPropagation();
           onToggle(item.id);
         }}
@@ -157,7 +158,7 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
         >
           <Check size={16} strokeWidth={3} />
         </motion.div>
-      </button>
+      </motion.button>
 
       <div className={styles.content}>
         {isEditing ? (
@@ -192,14 +193,16 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
             {' '}
             {item.name}
             {!item.isCompleted && !isLocked && onRename && (
-              <button
+              <motion.button
                 className={styles.inlineEditBtn}
-                onClick={startEdit}
+                onPointerDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                onTap={startEdit}
                 aria-label={`Redigera ${item.name}`}
                 tabIndex={0}
               >
                 <Pencil size={13} />
-              </button>
+              </motion.button>
             )}
           </span>
         )}
@@ -211,10 +214,11 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
       {!isLocked && (
         <div className={styles.actions}>
           <div className={styles.quantityControls}>
-            <button 
+            <motion.button 
               className={styles.qtyBtn} 
               onPointerDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
+              onTouchStart={(e) => e.stopPropagation()}
+              onTap={(e) => {
                 e.stopPropagation();
                 onUpdateQuantity(item.id, -1);
               }}
@@ -222,31 +226,33 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
               aria-label="Minska antal"
             >
               <Minus size={14} />
-            </button>
-            <button 
+            </motion.button>
+            <motion.button 
               className={styles.qtyBtn} 
               onPointerDown={(e) => e.stopPropagation()}
-              onClick={(e) => {
+              onTouchStart={(e) => e.stopPropagation()}
+              onTap={(e) => {
                 e.stopPropagation();
                 onUpdateQuantity(item.id, 1);
               }}
               aria-label="Öka antal"
             >
               <Plus size={14} />
-            </button>
+            </motion.button>
           </div>
 
-          <button
+          <motion.button
             className={styles.deleteButton}
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={(e) => {
+            onTouchStart={(e) => e.stopPropagation()}
+            onTap={(e) => {
               e.stopPropagation();
               onDelete(item.id);
             }}
             aria-label="Ta bort vara"
           >
             <Trash2 size={18} />
-          </button>
+          </motion.button>
         </div>
       )}
       </motion.div>
