@@ -1,5 +1,7 @@
 # Product Requirements Document (PRD): Mina Inköp (Shopping List)
 
+**Live Application**: [https://rikardsk.github.io/Shoppinglist/](https://rikardsk.github.io/Shoppinglist/)
+
 ## 1. Vision & Purpose
 **Mina Inköp** (My Shopping) is a premium, mobile-first Progressive Web App (PWA) designed to make grocery shopping frictionless and visually delightful. It combines a high-end "glassmorphism" aesthetic with powerful organizational tools like cross-category drag-and-drop and a dedicated "Shopping Mode."
 
