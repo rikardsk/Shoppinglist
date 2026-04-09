@@ -167,17 +167,9 @@
   transition: all 0.2s ease;
 }
 
-@media (hover: hover) {
-  .categoryHeaderInner:hover {
-    background: var(--bg-primary);
-  }
-}
-
-/* Explicitly disable any hover background on mobile/touch to prevent tap-flicker */
-@media (hover: none) {
-  .categoryHeaderInner:hover {
-    background: var(--glass-bg);
-  }
+/* Removed hover shift to keep UI stable */
+.categoryHeaderInner:hover {
+  background: var(--bg-primary);
 }
 
 .categoryHeaderBtn {
@@ -203,7 +195,7 @@
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
-  opacity: 0.8; /* Always visible */
+  opacity: 1; /* Permanently visible */
   transition: opacity 0.2s;
 }
 
@@ -275,10 +267,8 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-@media (hover: hover) {
-  .colorDot:hover {
-    transform: scale(1.1);
-  }
+.colorDot:hover {
+  transform: scale(1.1);
 }
 
 .colorDotActive {
@@ -308,10 +298,8 @@
   width: 100%;
 }
 
-@media (hover: hover) {
-  .addCategoryBtn:hover {
-    background: rgba(116, 179, 206, 0.05);
-  }
+.addCategoryBtn:hover {
+  background: rgba(116, 179, 206, 0.05);
 }
 
 .catTitle {

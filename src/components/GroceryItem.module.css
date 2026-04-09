@@ -26,21 +26,9 @@
   z-index: 1;
 }
 
-@media (hover: hover) {
-  .itemContainer:hover {
-    transform: translateX(4px);
-    background: var(--item-hover-bg, var(--bg-secondary));
-    box-shadow: 0 6px 16px rgba(70, 100, 130, 0.08);
-  }
-}
-
-/* Hardened: disable any physical movement on touch to prevent shifting buttons away from the finger */
-@media (hover: none) {
-  .itemContainer:hover {
-    transform: none !important;
-    background: var(--item-bg, var(--glass-bg)) !important;
-    box-shadow: 0 4px 12px rgba(70, 100, 130, 0.05) !important;
-  }
+/* Removed hover transform to keep UI stable on all devices */
+.itemContainer:hover {
+  background: var(--bg-secondary);
 }
 
 .itemContainer.completed {
@@ -156,20 +144,17 @@
   border: none;
   cursor: pointer;
   color: var(--text-secondary);
-  opacity: 0.7; /* Always visible and clear */
+  opacity: 1; /* Permanently visible */
   padding: 0.15rem;
   border-radius: 4px;
   margin-left: 0.25rem;
-  transition: opacity 0.15s, color 0.15s;
+  transition: color 0.15s;
   vertical-align: middle;
   line-height: 1;
 }
 
-@media (hover: hover) {
-  .inlineEditBtn:hover {
-    opacity: 1;
-    color: var(--accent-primary);
-  }
+.inlineEditBtn:hover {
+  color: var(--accent-primary);
 }
 
 .completed .name {
@@ -204,16 +189,13 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  opacity: 0.8; /* Always visible */
+  opacity: 1; /* Permanently visible */
   outline: none;
 }
 
-@media (hover: hover) {
-  .deleteButton:hover {
-    background: rgba(234, 138, 130, 0.15);
-    color: var(--accent-danger);
-    opacity: 1;
-  }
+.deleteButton:hover {
+  background: rgba(234, 138, 130, 0.15);
+  color: var(--accent-danger);
 }
 
 .actions {
@@ -246,11 +228,9 @@
   transition: all 0.2s ease;
 }
 
-@media (hover: hover) {
-  .qtyBtn:hover:not(:disabled) {
-    background: rgba(116, 179, 206, 0.2);
-    color: var(--accent-primary);
-  }
+.qtyBtn:hover:not(:disabled) {
+  background: rgba(116, 179, 206, 0.2);
+  color: var(--accent-primary);
 }
 
 .qtyBtn:disabled {
