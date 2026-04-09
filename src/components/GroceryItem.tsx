@@ -184,14 +184,16 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
             </button>
           </div>
         ) : (
-          <span className={styles.name}>
-            {item.quantity && (item.quantity > 1 || (item.unit && item.unit !== 'st')) ? (
-              <span className={styles.quantityBadge}>
-                {item.quantity}{item.unit && item.unit !== 'st' ? item.unit : 'x'}
-              </span>
-            ) : null}
-            {' '}
-            {item.name}
+          <div className={styles.nameRow}>
+            <span className={styles.name}>
+              {item.quantity && (item.quantity > 1 || (item.unit && item.unit !== 'st')) ? (
+                <span className={styles.quantityBadge}>
+                  {item.quantity}{item.unit && item.unit !== 'st' ? item.unit : 'x'}
+                </span>
+              ) : null}
+              {' '}
+              {item.name}
+            </span>
             {!item.isCompleted && !isLocked && onRename && (
               <motion.button
                 className={styles.inlineEditBtn}
@@ -204,7 +206,7 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
                 <Pencil size={13} />
               </motion.button>
             )}
-          </span>
+          </div>
         )}
         <span className={styles.category}>
           {getCategoryEmoji(item.category)} {item.category}

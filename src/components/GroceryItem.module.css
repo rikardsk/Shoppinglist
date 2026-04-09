@@ -94,8 +94,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.3;
+}
+
+.nameRow {
+  display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.15rem;
+  width: 100%;
 }
 
 /* Inline edit UI */
