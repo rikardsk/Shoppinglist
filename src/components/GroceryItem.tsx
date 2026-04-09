@@ -92,8 +92,8 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
     }
   };
 
-  const startEdit = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const startEdit = (e?: any) => {
+    if (e && e.stopPropagation) e.stopPropagation();
     if (item.isCompleted) return; // don't allow editing completed items
     setEditValue(item.name);
     setIsEditing(true);
@@ -199,7 +199,7 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
                 className={styles.inlineEditBtn}
                 onPointerDown={(e) => e.stopPropagation()}
                 onTouchStart={(e) => e.stopPropagation()}
-                onTap={startEdit}
+                onTap={() => startEdit()}
                 aria-label={`Redigera ${item.name}`}
                 tabIndex={0}
               >
