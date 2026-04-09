@@ -48,8 +48,8 @@
   border-bottom: none;
 }
 
-.row:hover {
-  background: rgba(255, 255, 255, 0.03);
+.row:hover, .row:active {
+  background: transparent;
 }
 
 .row.completed {

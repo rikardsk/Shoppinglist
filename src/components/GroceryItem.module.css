@@ -26,9 +26,9 @@
   z-index: 1;
 }
 
-/* Removed hover transform to keep UI stable on all devices */
-.itemContainer:hover {
-  background: var(--bg-secondary);
+/* Removed hover effects to make items feel static and non-selectable */
+.itemContainer:hover, .itemContainer:active {
+  background: var(--item-bg, var(--glass-bg));
 }
 
 .itemContainer.completed {
