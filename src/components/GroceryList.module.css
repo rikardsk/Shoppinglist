@@ -203,25 +203,8 @@
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
-  opacity: 0.7; /* Always visible but subtle */
+  opacity: 0.8; /* Always visible */
   transition: opacity 0.2s;
-}
-
-@media (hover: hover) {
-  .categoryActions {
-    opacity: 0; /* Hide on desktop until hover */
-  }
-  
-  .categoryHeaderInner:hover .categoryActions {
-    opacity: 1;
-  }
-}
-
-/* Explicitly remove the catch-all we added earlier to simplify */
-@media (hover: none) {
-  .categoryActions {
-    opacity: 1; /* Fully visible on touch */
-  }
 }
 
 .catActionBtn {
@@ -241,6 +224,7 @@
   .catActionBtn:hover {
     background: rgba(116, 179, 206, 0.15);
     color: var(--accent-primary);
+    opacity: 1;
   }
 }
 
