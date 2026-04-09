@@ -193,7 +193,6 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
               {' '}
               {item.name}
             </span>
-          </div>
         )}
         <span className={styles.category}>
           {getCategoryEmoji(item.category)} {item.category}
