@@ -180,7 +180,7 @@
 
 @media (max-width: 480px) {
   /* Hide the category header and data columns on mobile to save space */
-  .table th:nth-child(3),
+  .categoryHeader,
   .categoryCell {
     display: none;
   }

@@ -72,7 +72,7 @@ const ListView: React.FC<ListViewProps> = ({
             <th onClick={() => toggleSort('name')} className={styles.sortableHeader}>
               Namn {getSortIcon('name')}
             </th>
-            <th onClick={() => toggleSort('category')} className={styles.sortableHeader}>
+            <th onClick={() => toggleSort('category')} className={`${styles.sortableHeader} ${styles.categoryHeader}`}>
               Kategori {getSortIcon('category')}
             </th>
             <th className={styles.qtyCol}>Antal</th>
