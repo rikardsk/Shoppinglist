@@ -39,6 +39,10 @@
   opacity: 0.3;
 }
 
+.categoryHeader {
+  /* No special styles here, just ensures the class is exported */
+}
+
 .row {
   border-bottom: 1px solid var(--glass-border);
   transition: background 0.2s ease;
