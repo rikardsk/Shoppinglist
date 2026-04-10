@@ -95,7 +95,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid var(--text-secondary);
+  border: 1.5px solid rgba(156, 179, 196, 0.35);
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease;

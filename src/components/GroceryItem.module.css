@@ -50,7 +50,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 2px solid var(--accent-primary);
+  border: 2px solid rgba(116, 179, 206, 0.3);
   background: transparent;
   display: flex;
   align-items: center;
