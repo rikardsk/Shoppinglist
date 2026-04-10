@@ -22,7 +22,11 @@
   font-weight: 600;
   color: var(--text-secondary);
   border-bottom: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05); /* Default subtle highlight for dark */
+}
+
+:global([data-theme='light']) .table th {
+  background: rgba(116, 179, 206, 0.06); /* Sophisticated shade for light mode */
 }
 
 .sortableHeader {
