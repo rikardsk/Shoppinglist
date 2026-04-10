@@ -135,9 +135,11 @@
   transition: all 0.15s;
 }
 
-.editActionBtn:hover {
-  color: var(--accent-primary);
-  background: rgba(116, 179, 206, 0.1);
+@media (hover: hover) {
+  .editActionBtn:hover {
+    color: var(--accent-primary);
+    background: rgba(116, 179, 206, 0.1);
+  }
 }
 
 /* Small pencil that appears on hover next to the name */
@@ -192,14 +194,18 @@
   outline: none;
 }
 
-.actionBtn:hover {
-  background: rgba(116, 179, 206, 0.15);
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .actionBtn:hover {
+    background: rgba(116, 179, 206, 0.15);
+    color: var(--accent-primary);
+  }
 }
 
-.actionBtn.danger:hover {
-  background: rgba(234, 138, 130, 0.15);
-  color: var(--accent-danger);
+@media (hover: hover) {
+  .actionBtn.danger:hover {
+    background: rgba(234, 138, 130, 0.15);
+    color: var(--accent-danger);
+  }
 }
 
 .actions {
@@ -232,9 +238,11 @@
   transition: all 0.2s ease;
 }
 
-.qtyBtn:hover:not(:disabled) {
-  background: rgba(116, 179, 206, 0.2);
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .qtyBtn:hover:not(:disabled) {
+    background: rgba(116, 179, 206, 0.2);
+    color: var(--accent-primary);
+  }
 }
 
 .qtyBtn:disabled {

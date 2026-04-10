@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { MoreVertical, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GroceryItem } from '../types';
@@ -25,6 +25,16 @@ const ListView: React.FC<ListViewProps> = ({
 }) => {
   const [sortField, setSortField] = useState<SortField>('name');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState('');
+  const editInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editingId && editInputRef.current) {
+      editInputRef.current.focus();
+      editInputRef.current.select();
+    }
+  }, [editingId]);
 
   const toggleSort = (field: SortField) => {
     if (sortField === field) {
@@ -51,11 +61,21 @@ const ListView: React.FC<ListViewProps> = ({
     });
   }, [items, sortField, sortDir]);
 
-  const handleEdit = (item: GroceryItem) => {
-    const newName = window.prompt('Ändra namn:', item.name);
-    if (newName !== null && newName.trim()) {
-      onRename(item.id, newName.trim());
+  const startEdit = (item: GroceryItem) => {
+    if (item.isCompleted) return;
+    setEditValue(item.name);
+    setEditingId(item.id);
+  };
+
+  const commitEdit = () => {
+    if (editingId && editValue.trim()) {
+      onRename(editingId, editValue.trim());
     }
+    setEditingId(null);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
   };
 
   const getSortIcon = (field: SortField) => {
@@ -97,7 +117,21 @@ const ListView: React.FC<ListViewProps> = ({
                   />
                 </td>
                 <td className={styles.nameCell}>
-                   <span className={styles.itemName}>{item.name}</span>
+                   {editingId === item.id ? (
+                     <input
+                       ref={editInputRef}
+                       className={styles.editInput}
+                       value={editValue}
+                       onChange={(e) => setEditValue(e.target.value)}
+                       onBlur={commitEdit}
+                       onKeyDown={(e) => {
+                         if (e.key === 'Enter') commitEdit();
+                         if (e.key === 'Escape') cancelEdit();
+                       }}
+                     />
+                   ) : (
+                     <span className={styles.itemName} onClick={() => !isLocked && startEdit(item)}>{item.name}</span>
+                   )}
                 </td>
                 <td className={styles.categoryCell}>
                   <span className={styles.categoryBadge}>{item.category}</span>
@@ -117,7 +151,7 @@ const ListView: React.FC<ListViewProps> = ({
                   <td className={styles.actionCell}>
                     <div className={styles.rowActions}>
                       <motion.button 
-                        onTap={() => handleEdit(item)} 
+                        onTap={() => startEdit(item)} 
                         className={styles.rowActionBtn}
                         aria-label="Redigera"
                       >

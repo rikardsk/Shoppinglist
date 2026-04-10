@@ -31,8 +31,10 @@
   user-select: none;
 }
 
-.sortableHeader:hover {
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .sortableHeader:hover {
+    color: var(--accent-primary);
+  }
 }
 
 .sortIconInactive {
@@ -101,6 +103,20 @@
 .itemName {
   font-weight: 500;
   color: var(--text-primary);
+  cursor: pointer;
+}
+
+.editInput {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.2rem 0.5rem;
+  width: 100%;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(116, 179, 206, 0.15);
 }
 
 .completed .itemName {
@@ -139,10 +155,12 @@
   font-weight: bold;
 }
 
-.qtyBtn:hover {
-  background: var(--accent-primary);
-  color: white;
-  border-color: var(--accent-primary);
+@media (hover: hover) {
+  .qtyBtn:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+  }
 }
 
 .rowActions {
@@ -166,13 +184,17 @@
   opacity: 1; /* Always visible */
 }
 
-.rowActionBtn:hover {
-  background: var(--glass-border);
-  color: var(--accent-primary);
+@media (hover: hover) {
+  .rowActionBtn:hover {
+    background: var(--glass-border);
+    color: var(--accent-primary);
+  }
 }
 
-.rowActionBtn.deleteBtn:hover {
-  color: var(--accent-danger);
+@media (hover: hover) {
+  .rowActionBtn.deleteBtn:hover {
+    color: var(--accent-danger);
+  }
 }
 
 .empty {

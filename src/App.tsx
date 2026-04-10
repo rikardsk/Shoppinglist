@@ -64,6 +64,45 @@ const makeList = (name: string, templateId?: string, items: GroceryItem[] = []):
   };
 };
 
+const formatListAsText = (listName: string, items: GroceryItem[]) => {
+  const date = new Date().toLocaleDateString('sv-SE');
+  let text = `🛒 ${listName} (${date})\n-----------------------\n`;
+  const grouped = items.reduce((acc, item) => {
+    if (!acc[item.category]) acc[item.category] = [];
+    acc[item.category].push(item);
+    return acc;
+  }, {} as Record<string, GroceryItem[]>);
+
+  const icons: Record<string, string> = { 'Frukt & Grönt': '🍎', 'Mejeri': '🥛', 'Kött': '🥩', 'Bageri': '🍞', 'Skafferi': '🥫', 'Frysvaror': '❄️', 'Övrigt': '📦' };
+
+  Object.entries(grouped).forEach(([cat, catItems]) => {
+    text += `\n${icons[cat] || '📦'} ${cat.toUpperCase()}\n`;
+    catItems.forEach(item => {
+      const unit = item.unit && item.unit !== 'st' ? item.unit : '';
+      const qty = item.quantity && (item.quantity > 1 || unit) ? ` (${item.quantity}${unit})` : '';
+      text += `${item.isCompleted ? '[x] ' : '- '}${item.name}${qty}\n`;
+    });
+  });
+  return text;
+};
+
+const updateHistoryCategory = (oldName: string, newName: string | null) => {
+  const historyData = localStorage.getItem(HISTORY_KEY);
+  if (!historyData) return;
+  try {
+    const historyItems: GroceryItem[] = JSON.parse(historyData);
+    const updatedHistory = newName 
+      ? historyItems.map(item => item.category === oldName ? { ...item, category: newName } : item)
+      : historyItems.filter(item => item.category !== oldName);
+    
+    if (JSON.stringify(updatedHistory) !== historyData) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+    }
+  } catch (e) {
+    console.error('Failed to update history category', e);
+  }
+};
+
 /** Load lists from localStorage, migrating legacy single-list data if needed */
 const loadLists = (): { lists: GroceryListType[]; activeId: string } => {
   // Try new format first
@@ -283,49 +322,19 @@ const App: React.FC = () => {
     if (!trimmed || trimmed === oldName) return;
 
     setLists(prev => prev.map(l => {
-      if (l.id !== activeListId) return l;
-      const cats = l.categories || [...DEFAULT_CATEGORIES];
-      if (cats.includes(trimmed)) return l; // Prevent duplicate
-
-      const updatedCats = cats.map(c => c === oldName ? trimmed : c);
+      if (l.id !== activeListId || (l.categories || []).includes(trimmed)) return l;
+      
+      const updatedCats = (l.categories || [...DEFAULT_CATEGORIES]).map(c => c === oldName ? trimmed : c);
       const updatedItems = l.items.map(i => i.category === oldName ? { ...i, category: trimmed } : i);
-      const currentQuick = l.quickItems ?? [...DEFAULT_QUICK_ITEMS];
-      const updatedQuick = currentQuick.map(q => q.category === oldName ? { ...q, category: trimmed } : q);
-
+      const updatedQuick = (l.quickItems ?? [...DEFAULT_QUICK_ITEMS]).map(q => q.category === oldName ? { ...q, category: trimmed } : q);
       const newColors = { ...(l.categoryColors || {}) };
-      if (newColors[oldName]) {
-        newColors[trimmed] = newColors[oldName];
-        delete newColors[oldName];
-      }
+      if (newColors[oldName]) { newColors[trimmed] = newColors[oldName]; delete newColors[oldName]; }
 
-      return {
-        ...l,
-        categories: updatedCats,
-        items: updatedItems,
-        quickItems: updatedQuick,
-        categoryColors: newColors
-      };
+      return { ...l, categories: updatedCats, items: updatedItems, quickItems: updatedQuick, categoryColors: newColors };
     }));
 
     setSuggestions(prev => prev.map(s => s.category === oldName ? { ...s, category: trimmed } : s));
-
-    const historyData = localStorage.getItem(HISTORY_KEY);
-    if (historyData) {
-      try {
-        const historyItems: GroceryItem[] = JSON.parse(historyData);
-        let updatedHistory = false;
-        const nextHistory = historyItems.map(item => {
-          if (item.category === oldName) {
-            updatedHistory = true;
-            return { ...item, category: trimmed };
-          }
-          return item;
-        });
-        if (updatedHistory) {
-          localStorage.setItem(HISTORY_KEY, JSON.stringify(nextHistory));
-        }
-      } catch (e) {}
-    }
+    updateHistoryCategory(oldName, trimmed);
   };
 
   const handleUpdateCategoryColor = (categoryName: string, color: string) => {
@@ -340,32 +349,19 @@ const App: React.FC = () => {
 
   const handleDeleteCategory = (categoryName: string) => {
     setLists(prev => prev.map(l => {
-      if (l.id !== activeListId) return l;
       const cats = l.categories || [...DEFAULT_CATEGORIES];
-      if (cats.length <= 1) return l; // Can't delete last
-
-      const currentQuick = l.quickItems ?? [...DEFAULT_QUICK_ITEMS];
+      if (l.id !== activeListId || cats.length <= 1) return l;
 
       return {
         ...l,
         categories: cats.filter(c => c !== categoryName),
         items: l.items.filter(i => i.category !== categoryName),
-        quickItems: currentQuick.filter(q => q.category !== categoryName)
+        quickItems: (l.quickItems ?? [...DEFAULT_QUICK_ITEMS]).filter(q => q.category !== categoryName)
       };
     }));
 
     setSuggestions(prev => prev.filter(s => s.category !== categoryName));
-
-    const historyData = localStorage.getItem(HISTORY_KEY);
-    if (historyData) {
-      try {
-        const historyItems: GroceryItem[] = JSON.parse(historyData);
-        const filteredHistory = historyItems.filter(item => item.category !== categoryName);
-        if (filteredHistory.length !== historyItems.length) {
-          localStorage.setItem(HISTORY_KEY, JSON.stringify(filteredHistory));
-        }
-      } catch (e) {}
-    }
+    updateHistoryCategory(categoryName, null);
   };
 
   // ─── Item Management ───────────────────────────────────────────────────────
@@ -385,20 +381,10 @@ const App: React.FC = () => {
       const existingIdx = prev.findIndex(item => item.name.toLowerCase() === name.toLowerCase());
       if (existingIdx >= 0) {
         const next = [...prev];
-        const existing = next[existingIdx];
-        next[existingIdx] = { ...existing, quantity: (existing.quantity || 1) + 1 };
+        next[existingIdx] = { ...next[existingIdx], quantity: (next[existingIdx].quantity || 1) + 1 };
         return [next[existingIdx], ...next.filter((_, i) => i !== existingIdx)];
       }
-      const newItem: GroceryItem = {
-        id: makeId(),
-        name,
-        category,
-        quantity: 1,
-        unit,
-        isCompleted: false,
-        createdAt: Date.now(),
-      };
-      return [newItem, ...prev];
+      return [{ id: makeId(), name, category, quantity: 1, unit, isCompleted: false, createdAt: Date.now() }, ...prev];
     });
   };
 
@@ -483,36 +469,7 @@ const App: React.FC = () => {
 
   const handleCopyAsText = () => {
     if (items.length === 0) return;
-    const date = new Date().toLocaleDateString('sv-SE');
-    let text = `🛒 ${activeList.name} (${date})\n`;
-    text += `-----------------------\n`;
-
-    const grouped = items.reduce((acc, item) => {
-      if (!acc[item.category]) acc[item.category] = [];
-      acc[item.category].push(item);
-      return acc;
-    }, {} as Record<Category, GroceryItem[]>);
-
-    const categoryNames: Record<Category, string> = {
-      'Frukt & Grönt': '🍎 FRUKT & GRÖNT',
-      'Mejeri': '🥛 MEJERI',
-      'Kött': '🥩 KÖTT',
-      'Bageri': '🍞 BAGERI',
-      'Skafferi': '🥫 SKAFFERI',
-      'Frysvaror': '❄️ FRYSVAROR',
-      'Övrigt': '📦 ÖVRIGT',
-    };
-
-    (Object.entries(grouped) as [Category, GroceryItem[]][]).forEach(([cat, catItems]) => {
-      text += `\n${categoryNames[cat] || cat.toUpperCase()}\n`;
-      catItems.forEach(item => {
-        const unitDisplay = item.unit && item.unit !== 'st' ? item.unit : '';
-        const qty = item.quantity && (item.quantity > 1 || unitDisplay) ? ` (${item.quantity}${unitDisplay})` : '';
-        const status = item.isCompleted ? '[x] ' : '- ';
-        text += `${status}${item.name}${qty}\n`;
-      });
-    });
-
+    const text = formatListAsText(activeList.name, items);
     navigator.clipboard.writeText(text).then(() => {
       setCopyStatus('copied');
       setTimeout(() => setCopyStatus('idle'), 2000);

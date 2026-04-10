@@ -51,11 +51,13 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
-.headerButton:hover {
-  color: var(--accent-primary);
-  background: var(--glass-border);
-  transform: translateY(-2px);
-  box-shadow: var(--glass-shadow);
+@media (hover: hover) {
+  .headerButton:hover {
+    color: var(--accent-primary);
+    background: var(--glass-border);
+    transform: translateY(-2px);
+    box-shadow: var(--glass-shadow);
+  }
 }
 
 .header h1 {
@@ -146,8 +148,10 @@
   transition: transform 0.3s ease;
 }
 
-.headerButton.locked:hover .lockedIcon {
-  transform: rotate(0deg) scale(1.1);
+@media (hover: hover) {
+  .headerButton.locked:hover .lockedIcon {
+    transform: rotate(0deg) scale(1.1);
+  }
 }
 
 @media (max-width: 480px) {
@@ -223,9 +227,11 @@
   width: 100%;
 }
 
-.uncheckAllBtn:hover:not(:disabled) {
-  background: var(--accent-primary);
-  color: white;
+@media (hover: hover) {
+  .uncheckAllBtn:hover:not(:disabled) {
+    background: var(--accent-primary);
+    color: white;
+  }
 }
 
 .uncheckAllBtn:disabled {
@@ -248,9 +254,11 @@
   width: 100%;
 }
 
-.clearAllBtn:hover {
-  background: var(--accent-danger);
-  color: white;
+@media (hover: hover) {
+  .clearAllBtn:hover {
+    background: var(--accent-danger);
+    color: white;
+  }
 }
 
 @media (max-width: 480px) {
