@@ -104,6 +104,17 @@
   font-weight: 500;
   color: var(--text-primary);
   cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  margin-left: -0.4rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+@media (hover: hover) {
+  .itemName:hover {
+    background: rgba(116, 179, 206, 0.1);
+    color: var(--accent-primary);
+  }
 }
 
 .editInput {
