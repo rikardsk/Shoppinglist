@@ -108,12 +108,18 @@ const ListView: React.FC<ListViewProps> = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className={`${styles.row} ${item.isCompleted ? styles.completed : ''}`}
+                className={`${styles.row} ${item.isCompleted ? styles.completed : ''} ${isLocked ? styles.rowLocked : ''}`}
+                onTap={() => onToggleComplete(item.id)}
               >
                 <td className={styles.checkCell}>
-                  <button 
+                  <motion.button 
                     className={`${styles.checkbox} ${item.isCompleted ? styles.checked : ''}`}
-                    onClick={() => onToggleComplete(item.id)}
+                    onPointerDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTap={(e) => {
+                      e.stopPropagation();
+                      onToggleComplete(item.id);
+                    }}
                   />
                 </td>
                 <td className={styles.nameCell}>

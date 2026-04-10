@@ -127,13 +127,14 @@ const GroceryItem: React.FC<GroceryItemProps> = ({
       className={styles.swipeWrapper}
     >
       <motion.div
-        className={`${styles.itemContainer} ${item.isCompleted ? styles.completed : ''} ${isDraggingPreview ? styles.preview : ''}`}
+        className={`${styles.itemContainer} ${item.isCompleted ? styles.completed : ''} ${isDraggingPreview ? styles.preview : ''} ${isLocked ? styles.lockedItem : ''}`}
         drag={isLocked ? false : "x"}
         dragDirectionLock
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={{ left: 0.8, right: 0 }}
         onDragEnd={handleDragEnd}
         animate={controls}
+        onTap={() => isLocked && onToggle(item.id)}
       >
         {!isLocked && (
           <div className={styles.dragHandle} {...attributes} {...listeners}>

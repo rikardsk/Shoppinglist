@@ -26,6 +26,14 @@
   z-index: 1;
 }
 
+.lockedItem {
+  cursor: pointer;
+}
+
+.lockedItem:active {
+  background: rgba(116, 179, 206, 0.1) !important;
+}
+
 /* Removed hover effects to make items feel static and non-selectable */
 .itemContainer:hover, .itemContainer:active {
   background: var(--item-bg, var(--glass-bg));

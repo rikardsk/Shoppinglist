@@ -62,6 +62,21 @@
   opacity: 0.6;
 }
 
+.rowLocked {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+  .rowLocked:hover {
+    background: rgba(116, 179, 206, 0.05);
+  }
+}
+
+.rowLocked:active {
+  background: rgba(116, 179, 206, 0.1);
+}
+
 .table td {
   padding: 0.85rem 0.75rem;
   font-size: 0.95rem;
