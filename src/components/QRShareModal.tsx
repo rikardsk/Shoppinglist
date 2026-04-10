@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Link, Check, QrCode } from 'lucide-react';
+import { X, Link, Check, QrCode, Smartphone } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import styles from './QRShareModal.module.css';
 
@@ -56,19 +56,31 @@ const QRShareModal: React.FC<QRShareModalProps> = ({ isOpen, onClose, url, listN
             />
           </div>
 
-          <div className={styles.divider}>
-            <span>eller</span>
+          <div className={styles.iphoneTip}>
+            <Smartphone size={14} />
+            <span>Öppnar i Safari? Kopiera länken nedan och öppna din installerade app → Importera.</span>
           </div>
 
-          <button
-            className={`${styles.copyBtn} ${copied ? styles.copied : ''}`}
-            onClick={handleCopy}
-          >
-            {copied
-              ? <><Check size={18} /><span>Länk kopierad!</span></>
-              : <><Link size={18} /><span>Kopiera länk</span></>
-            }
-          </button>
+          <div className={styles.divider}>
+            <span>kopiera länk</span>
+          </div>
+
+          <div className={styles.urlRow}>
+            <input
+              className={styles.urlInput}
+              readOnly
+              value={url}
+              onFocus={e => e.target.select()}
+              aria-label="Delningslänk"
+            />
+            <button
+              className={`${styles.copyBtn} ${copied ? styles.copied : ''}`}
+              onClick={handleCopy}
+              title="Kopiera länk"
+            >
+              {copied ? <Check size={18} /> : <Link size={18} />}
+            </button>
+          </div>
         </motion.div>
       </div>
     </AnimatePresence>

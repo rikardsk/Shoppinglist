@@ -31,7 +31,7 @@ import ShareImportModal from './components/ShareImportModal';
 import QRShareModal from './components/QRShareModal';
 import ListSwitcher from './components/ListSwitcher';
 import InstallPrompt from './components/InstallPrompt';
-import { ShieldAlert, Zap, Loader2, Share2 } from 'lucide-react';
+import { ShieldAlert, Zap, Loader2, Share2, Download } from 'lucide-react';
 import { encodeList, decodeList } from './utils/sharing';
 import { GroceryItem, GroceryList as GroceryListType, Category, Unit, QuickItem, DEFAULT_QUICK_ITEMS, DEFAULT_CATEGORIES, LIST_TEMPLATES } from './types';
 
@@ -165,6 +165,8 @@ const App: React.FC = () => {
   const [pwaStatus, setPwaStatus] = useState<'checking' | 'limited' | 'installing' | 'ready'>('checking');
   const [sharedItems, setSharedItems] = useState<GroceryItem[] | null>(null);
   const [qrUrl, setQrUrl] = useState<string | null>(null);
+  const [pasteImportOpen, setPasteImportOpen] = useState(false);
+  const [pasteValue, setPasteValue] = useState('');
   const [isLocked, setIsLocked] = useState<boolean>(() => {
     return localStorage.getItem(LOCKED_KEY) === 'true';
   });
@@ -483,6 +485,27 @@ const App: React.FC = () => {
     const url = `${window.location.origin}${window.location.pathname}?share=${encoded}`;
     setQrUrl(url);
   };
+  const handlePasteImport = () => {
+    const raw = pasteValue.trim();
+    if (!raw) return;
+    // Accept either a full URL with ?share=... or just the encoded payload
+    let encoded = raw;
+    try {
+      const urlObj = new URL(raw);
+      encoded = urlObj.searchParams.get('share') ?? raw;
+    } catch {
+      // not a URL, treat as raw code
+    }
+    const decoded = decodeList(encoded);
+    if (decoded.length > 0) {
+      setSharedItems(decoded);
+      setPasteImportOpen(false);
+      setPasteValue('');
+    } else {
+      alert('Ingen giltig listan hittades i länken. Kontrollera att du kopierade hela länken.');
+    }
+  };
+
 
   const handleImportShared = (mode: 'merge' | 'replace') => {
     if (!sharedItems) return;
@@ -650,6 +673,14 @@ const App: React.FC = () => {
             >
               <Share2 size={20} />
             </button>
+            <button
+              onClick={() => setPasteImportOpen(true)}
+              className={styles.headerButton}
+              title="Importera lista från länk"
+              aria-label="Importera lista från länk"
+            >
+              <Download size={20} />
+            </button>
           </div>
         </div>
         <p>Din vackra och enkla inköpslista</p>
@@ -668,6 +699,41 @@ const App: React.FC = () => {
         url={qrUrl ?? ''}
         listName={activeList?.name ?? ''}
       />
+
+      {/* Paste-link import dialog */}
+      <AnimatePresence>
+        {pasteImportOpen && (
+          <div className={styles.pasteOverlay} onClick={() => setPasteImportOpen(false)}>
+            <motion.div
+              className={styles.pasteModal}
+              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.92, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 16 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+            >
+              <h3>📲 Importera lista</h3>
+              <p>Klistra in delningslänken från din dator:</p>
+              <textarea
+                className={styles.pasteArea}
+                value={pasteValue}
+                onChange={e => setPasteValue(e.target.value)}
+                placeholder="https://rikardsk.github.io/Shoppinglist/?share=..."
+                rows={3}
+                autoFocus
+              />
+              <div className={styles.pasteActions}>
+                <button className={styles.pasteCancel} onClick={() => { setPasteImportOpen(false); setPasteValue(''); }}>
+                  Avbryt
+                </button>
+                <button className={styles.pasteConfirm} onClick={handlePasteImport} disabled={!pasteValue.trim()}>
+                  Importera
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       <main className={styles.mainContent}>
         {/* List switcher */}
