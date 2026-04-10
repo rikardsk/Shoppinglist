@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { MoreVertical, Pencil, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
+import { Trash2, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GroceryItem } from '../types';
 import styles from './ListView.module.css';
@@ -84,7 +84,7 @@ const ListView: React.FC<ListViewProps> = ({
   };
 
   return (
-    <div className={styles.tableWrapper}>
+    <div className={`${styles.tableWrapper} ${isLocked ? styles.isLocked : ''}`}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -150,13 +150,6 @@ const ListView: React.FC<ListViewProps> = ({
                 {!isLocked && (
                   <td className={styles.actionCell}>
                     <div className={styles.rowActions}>
-                      <motion.button 
-                        onTap={() => startEdit(item)} 
-                        className={styles.rowActionBtn}
-                        aria-label="Redigera"
-                      >
-                        <Pencil size={16} />
-                      </motion.button>
                       <motion.button 
                         onTap={() => onDelete(item.id)} 
                         className={`${styles.rowActionBtn} ${styles.deleteBtn}`}

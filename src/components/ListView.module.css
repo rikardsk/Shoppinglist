@@ -70,7 +70,7 @@
 
 .checkCol { width: 44px; }
 .qtyCol { width: 100px; text-align: center; }
-.actionCol { width: 80px; text-align: center; }
+.actionCol { width: 60px; text-align: center; }
 
 .checkCell {
   padding-left: 1rem !important;
@@ -216,13 +216,36 @@
 }
 
 @media (max-width: 480px) {
-  /* Hide the category header and data columns on mobile to save space */
+  /* Hide the category header and data columns on mobile by default */
   .categoryHeader,
   .categoryCell {
     display: none;
   }
   
+  /* Show category column on mobile ONLY when locked (because actions are hidden) */
+  .isLocked .categoryHeader,
+  .isLocked .categoryCell {
+    display: table-cell;
+  }
+
   .table td, .table th {
-    padding: 0.75rem 0.5rem;
+    padding: 0.75rem 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .itemName {
+    font-size: 0.9rem;
+    margin-left: 0;
+    padding: 0.1rem 0.2rem;
+  }
+
+  .categoryBadge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    max-width: 70px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
