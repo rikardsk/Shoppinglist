@@ -28,6 +28,7 @@ import AddItemForm from './components/AddItemForm';
 import GroceryList from './components/GroceryList';
 import ListView from './components/ListView';
 import ShareImportModal from './components/ShareImportModal';
+import QRShareModal from './components/QRShareModal';
 import ListSwitcher from './components/ListSwitcher';
 import InstallPrompt from './components/InstallPrompt';
 import { ShieldAlert, Zap, Loader2, Share2 } from 'lucide-react';
@@ -163,7 +164,7 @@ const App: React.FC = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [pwaStatus, setPwaStatus] = useState<'checking' | 'limited' | 'installing' | 'ready'>('checking');
   const [sharedItems, setSharedItems] = useState<GroceryItem[] | null>(null);
-  const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle');
+  const [qrUrl, setQrUrl] = useState<string | null>(null);
   const [isLocked, setIsLocked] = useState<boolean>(() => {
     return localStorage.getItem(LOCKED_KEY) === 'true';
   });
@@ -480,10 +481,7 @@ const App: React.FC = () => {
     if (items.length === 0) return;
     const encoded = encodeList(items);
     const url = `${window.location.origin}${window.location.pathname}?share=${encoded}`;
-    navigator.clipboard.writeText(url).then(() => {
-      setShareStatus('copied');
-      setTimeout(() => setShareStatus('idle'), 2000);
-    });
+    setQrUrl(url);
   };
 
   const handleImportShared = (mode: 'merge' | 'replace') => {
@@ -646,11 +644,11 @@ const App: React.FC = () => {
             </button>
             <button 
               onClick={handleShareList} 
-              className={`${styles.headerButton} ${shareStatus === 'copied' ? styles.success : ''}`} 
-              title="Dela lista (kopierar länk)"
-              aria-label="Dela lista"
+              className={styles.headerButton} 
+              title="Dela lista via QR-kod"
+              aria-label="Dela lista via QR-kod"
             >
-              {shareStatus === 'copied' ? <Check size={20} color="var(--accent-success)" /> : <Share2 size={20} />}
+              <Share2 size={20} />
             </button>
           </div>
         </div>
@@ -662,6 +660,13 @@ const App: React.FC = () => {
         onClose={() => setSharedItems(null)} 
         sharedItems={sharedItems || []} 
         onImport={handleImportShared}
+      />
+
+      <QRShareModal
+        isOpen={!!qrUrl}
+        onClose={() => setQrUrl(null)}
+        url={qrUrl ?? ''}
+        listName={activeList?.name ?? ''}
       />
 
       <main className={styles.mainContent}>

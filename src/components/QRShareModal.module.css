@@ -1,0 +1,142 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  color: var(--accent-danger);
+  background: rgba(234, 138, 130, 0.1);
+  transform: rotate(90deg);
+}
+
+.header {
+  margin-bottom: 1.75rem;
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  background: rgba(116, 179, 206, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  border: 1px solid rgba(116, 179, 206, 0.25);
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.header p strong {
+  color: var(--text-primary);
+}
+
+.qrWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  margin-bottom: 1.5rem;
+}
+
+.qrCode {
+  border-radius: 8px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--glass-border);
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  border-radius: 14px;
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  background: rgba(116, 179, 206, 0.1);
+  color: var(--accent-primary);
+  transition: all 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: rgba(116, 179, 206, 0.18);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(116, 179, 206, 0.2);
+}
+
+.copyBtn.copied {
+  background: rgba(129, 205, 168, 0.15);
+  color: var(--accent-success);
+  border-color: rgba(129, 205, 168, 0.3);
+}
