@@ -259,14 +259,10 @@
 }
 
 .quantityBadge {
-  color: var(--accent-primary);
-  font-weight: 700;
   margin-right: 0.2rem;
 }
 
-.completed .quantityBadge {
-  color: var(--text-secondary);
-}
+
 
 .dragHandle {
   display: flex;

@@ -579,9 +579,12 @@ const App: React.FC = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerTop}>
-          <div className={styles.logo}>
-            <ShoppingBag size={32} color="var(--accent-primary)" />
-            <h1>Mina Inköp</h1>
+          <div className={styles.headerTitleGroup}>
+            <div className={styles.logo}>
+              <ShoppingBag size={32} color="var(--accent-primary)" />
+              <h1>Mina Inköp</h1>
+            </div>
+            <p>Din vackra och enkla inköpslista</p>
           </div>
           <div className={styles.actions}>
             <button 
@@ -683,7 +686,6 @@ const App: React.FC = () => {
             </button>
           </div>
         </div>
-        <p>Din vackra och enkla inköpslista</p>
       </header>
 
       <ShareImportModal 

@@ -29,6 +29,12 @@
   gap: 0.75rem;
 }
 
+.headerTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .actions {
   display: flex;
   align-items: center;
